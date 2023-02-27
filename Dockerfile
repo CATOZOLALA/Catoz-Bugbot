@@ -7,15 +7,16 @@ RUN apt-get update && \
   ffmpeg \
   wget \
   imagemagick \
-  graphicsmagick \
-  webp \
+  webp \ 
   mc && \
   rm -rf /var/lib/apt/lists/*
 
 COPY package.json .
-RUN npm install -g npm@8.1.3
-RUN npm install -g pm2
-RUN npm update
+
+RUN npm install && npm install qrcode-terminal
+
 COPY . .
-RUN pm2 save
-CMD ["pm2-runtime", "next.js"]`
+
+EXPOSE 5000
+
+CMD ["node", "next.js"]
